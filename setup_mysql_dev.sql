@@ -1,13 +1,25 @@
--- script that prepares the MySQL server for the project
+!/usr/bin/python3
+"""Task 0"""
 
---creation of the database 
-CREATE DATABASE IF NOT EXISTS hbnb_test_db;
+import MySQLdb
+import sys
 
--- creation of the user 
-CREATE USER IF NOT EXISTS "hbnb_test"@"localhost" IDENTIFIED BY 'hbnb_test_pwd';
+if __name__ == "__main__":
 
--- give all privileges to the user on the database
-GRANT ALL PRIVILEGES ON hbnb_test_db.* TO "hbnb_test"@"localhost";
+db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=hbnb_dev,
+        passwd=hbnb_dev_pwd,
+        db=hbnb_dev_db
+    )
 
--- gives the select privileges to the user
-GRANT SELECT ON performance_schema.* TO "hbnb_test"@"localhost";
+    cursor = db.cursor()
+    cursor.execute("GRANT ALL PRIVILEGES ON hbnb_dev_db \
+                    TO 'hbnb_dev'@'localhost'")
+
+    cursor.execute("GRANT SELECT ON performance_schema \
+                    TO 'hbnb_dev'@'localhost'")
+
+    cursor.close()
+    db.close()
