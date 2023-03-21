@@ -1,32 +1,11 @@
---- SQL
-!/usr/bin/python3
-"""Task 3"""
+-- Create the hbnb_dev_db database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 
-import MySQLdb
-import sys
+-- Create the hbnb_dev user if it doesn't exist
+CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
 
-if __name__ == "__main__":
+-- Grant all privileges on hbnb_dev_db to hbnb_dev
+GRANT ALL PRIVILEGES ON hbnb_dev_db TO 'hbnb_dev'@'localhost';
 
-
-    db = MySQLdb.connect(
-            host="localhost",
-            port=3306,
-            user=hbnb_dev,
-            passwd=hbnb_dev_pwd,
-            db=hbnb_dev_db
-        )
-
-        cursor = db.cursor()
-        cursor.execute("CREATE DATABASE IF NOT EXISTS hbnb_test_db")
-
-        cursor.execute("CREATE USER IF NOT EXISTS "hbnb_test"@"localhost"\
-                        IDENTIFIED BY 'hbnb_test_pwd'")
-
-        cursor.execute("GRANT ALL PRIVILEGES ON hbnb_dev_db \
-                        TO 'hbnb_dev'@'localhost'")
-
-        cursor.execute("GRANT SELECT ON performance_schema \
-                    TO 'hbnb_dev'@'localhost'")
-
-        cursor.close()
-        db.close()
+-- Grant SELECT privilege on performance_schema to hbnb_dev
+GRANT SELECT ON performance_schema TO 'hbnb_dev'@'localhost';
