@@ -1,4 +1,4 @@
--- SQL
+-- SQL test db
 
 import mysql.connector
 
