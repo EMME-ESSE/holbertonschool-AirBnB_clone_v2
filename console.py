@@ -136,13 +136,9 @@ class HBNBCommand(cmd.Cmd):
             except (ValueError, TypeError):
                 pass
 
-    new_object = HBNBCommand().classes[tokens[0]](**kwargs)
-    new_object.save()
-    print(new_object.id)
-
-
-
-    
+        new_object = HBNBCommand().classes[tokens[0]](**kwargs)
+        new_object.save()
+        print(new_object.id)
 
     def help_create(self):
         """ Help information for the create method """
