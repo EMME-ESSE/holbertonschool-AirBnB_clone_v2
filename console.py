@@ -121,11 +121,11 @@ class HBNBCommand(cmd.Cmd):
             print('** class name missing **')
             return
         token = args.split()
-        if token[0] not in HBNBCommand().classes:
+        class_name = token[0]
+        
+        if class_name not in HBNBCommand().classes:
             print("** class doesn't exist **")
             return
-
-        class_name = token[0]
         kwargs = {}
         for args in token[1:]:
             try:
@@ -137,10 +137,10 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     value = int(value)
                 kwargs[key] = value
-            except:
+            except (ValueError, TypeError):
                 pass
 
-        new_object = self.classes[class_name](**kwargs)
+        new_object = HBNBCommand().classes[class_name](**kwargs)
         new_object.save()
         print(new_object.id)
 
