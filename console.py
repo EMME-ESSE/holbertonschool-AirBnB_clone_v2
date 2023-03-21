@@ -125,6 +125,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
+        class_name = token[0]
         kwargs = {}
         for args in token[1:]:
             try:
@@ -139,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
             except:
                 pass
 
-        new_object = HBNBCommand().classes[token[0]](**kwargs)
+        new_object = self.classes[class_name](**kwargs)
         new_object.save()
         print(new_object.id)
 
