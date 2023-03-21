@@ -141,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 pass
 
         new_object = HBNBCommand().classes[class_name](**kwargs)
+        storage.new(new_object)
         new_object.save()
         print(new_object.id)
 
