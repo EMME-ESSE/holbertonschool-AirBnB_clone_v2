@@ -13,7 +13,7 @@ class FileStorage:
         if cls is None:
             return FileStorage.__objects
         objects_dict = {}
-        for key, obj in self.__objects.items():
+        for key, obj in FileStorage.__objects.items():
             if isinstance(obj, cls):
                 objects_dict[key] = obj
         return objects_dict
@@ -42,10 +42,10 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-            'BaseModel': BaseModel, 'User': User, 'Place': Place,
-            'State': State, 'City': City, 'Amenity': Amenity,
-            'Review': Review
-        }
+                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                    'State': State, 'City': City, 'Amenity': Amenity,
+                    'Review': Review
+                  }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
@@ -57,5 +57,9 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Function that delete obj from __objects if it is inside"""
-        self.__objects.pop(obj.__class__.__name__ + "." + obj.__dict__["id"], None)
-        self.save()
+        if obj is not None:
+            key = "{}.{}".format(type(obj).__name__, obj.id)
+            if key in FileStorage.__objects:
+                del FileStorage.__objects[key]
+                self.save()
+        return
