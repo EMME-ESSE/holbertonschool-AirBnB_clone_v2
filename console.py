@@ -15,20 +15,20 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
-    # determines prompt for interactive/non-interactive modes
+     # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+        'State': State, 'City': City, 'Amenity': Amenity,
+        'Review': Review
+    }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
-            }
+        'number_rooms': int, 'number_bathrooms': int,
+        'max_guest': int, 'price_by_night': int,
+        'latitude': float, 'longitude': float
+    }
 
     def preloop(self):
         """Prints if isatty is false"""
@@ -112,33 +112,35 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, args):
-        """ create a new instance """
-        if not args:
-            print('** class name missing **')
+    def do_create(self, arg):
+        """Creates a new object of a specified class with given parameters"""
+        args = arg.split()
+        if len(args) == 0:
+            print("** class name missing **")
             return
-        tokens = args.split()
-        if tokens[0] not in HBNBCommand().classes:
+        class_name = args[0]
+        if class_name not in self.classes:
             print("** class doesn't exist **")
             return
-
-        kwargs = {}
-        for token in tokens[1:]:
+        params = {}
+        i = 1
+        while i < len(args):
             try:
-                key, value = token.split('=', 1)
+                key_value_pair = args[i]
+                key, value = key_value_pair.split('=')
                 if value.startswith('"') and value.endswith('"'):
                     value = value[1:-1].replace('_', ' ').replace('\\"', '"')
-                elif '.' in value:
+                elif '.' in value:                   
                     value = float(value)
-                else:
+                else:       
                     value = int(value)
-                kwargs[key] = value
-            except (ValueError, TypeError):
-                pass
-
-        new_object = HBNBCommand().classes[tokens[0]](**kwargs)
-        new_object.save()
+                params[key] = value
+                i += 1
+            except ValueError:    
+                i += 1
+        new_object = self.classes[class_name](**params)
         print(new_object.id)
+        self.save_to_file()
 
     def help_create(self):
         """ Help information for the create method """
