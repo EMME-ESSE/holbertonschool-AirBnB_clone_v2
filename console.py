@@ -124,18 +124,16 @@ class HBNBCommand(cmd.Cmd):
 
         kwargs = {}
         for token in tokens[1:]:
-            try:
-                key, value = token.split('=', 1)
-                if value.startswith('"') and value.endswith('"'):
-                    value = value[1:-1].replace('_', ' ').replace('\\"', '"')
-                elif '.' in value:
-                    value = float(value)
-                else:
-                    value = int(value)
-                kwargs[key] = value
-            except (ValueError, TypeError):
-                pass
-
+                key = token.split('=')[0]
+                value = token.split('=')[1]
+                if key in HBNBCommand.classes[tokens[0]].__dict__:
+                    if value.startswith('"') and value.endswith('"'):
+                        value = value[1:-1].replace('_', ' ').replace('\\"', '"')
+                    elif '.' in value:
+                        value = float(value)
+                    else:
+                        value = int(value)
+                        kwargs[key] = value
         new_object = HBNBCommand().classes[tokens[0]](**kwargs)
         new_object.save()
         print(new_object.id)
@@ -334,5 +332,3 @@ class HBNBCommand(cmd.Cmd):
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
 
-if __name__ == "__main__":
-    HBNBCommand().cmdloop()
