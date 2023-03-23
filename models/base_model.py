@@ -6,6 +6,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
+
 Base = declarative_base()
 
 
@@ -18,6 +19,7 @@ class BaseModel:
     """A base class for all hbnb models"""
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
+        dateform = "%Y-%m-%dT%H:%M:%S.%f"
         if not kwargs:
             from models import storage
             self.id = str(uuid.uuid4())
@@ -26,6 +28,8 @@ class BaseModel:
            
         else:
             for key, value in kwargs.items():
+                if key in ["created_at", "updated_at"]:
+                    setattr(self, key, datetime.strptime(value, dateform))
                 if key != "__class__":
                     setattr(self, key, value)
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
@@ -37,8 +41,8 @@ class BaseModel:
 
     def __str__(self):
         """Returns a string representation of the instance"""
-        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        return "[{:s}] ({:s}) {}".format(self.__class__.__name__,
+                                          self.id, self.__dict__)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
