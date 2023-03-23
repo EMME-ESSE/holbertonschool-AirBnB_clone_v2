@@ -4,7 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """Defines user"""
     __tablename__ = 'users'
     email = Column(String(128), nullable=False)
