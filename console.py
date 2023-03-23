@@ -133,9 +133,11 @@ class HBNBCommand(cmd.Cmd):
                         value = float(value)
                     else:
                         value = int(value)
-                        kwargs[key] = value
-        new_object = HBNBCommand().classes[tokens[0]](**kwargs)
-        new_object.save()
+                    kwargs[key] = value
+        new_object = HBNBCommand().classes[tokens[0]]()
+        new_object.__dict__.update(kwargs)
+        storage.new(new_object)
+        storage.save()
         print(new_object.id)
         
     def help_create(self):
