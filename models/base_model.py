@@ -7,12 +7,13 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class BaseModel:
 
     id = Column(String(60), nullable=False, primary_key=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    
+
     """A base class for all hbnb models"""
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
@@ -38,7 +39,7 @@ class BaseModel:
         """Updates updated_at with current time when instance is changed"""
         from models import storage
         self.updated_at = datetime.now()
-        storage.new(self)        
+        storage.new(self)
         storage.save()
 
     def to_dict(self):

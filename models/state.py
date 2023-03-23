@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
+
 from models.base_model import BaseModel, Base
 from sqlalchemy import String, Column
 from sqlalchemy.orm import relationship
+
 
 class State(BaseModel, Base):
     """ State class """
@@ -12,7 +14,7 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
 
     from os import environ
-    
+
     if environ.get("HBNB_TYPE_STORAGE") == "db":
         cities = relationship("City", backref="state", cascade="delete")
     if environ.get("HBNB_TYPE_STORAGE") == "file":
@@ -27,4 +29,3 @@ class State(BaseModel, Base):
                     if instance.state_id == self.id:
                         new_list.append(instance)
             return new_list
-                

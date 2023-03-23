@@ -15,7 +15,7 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
-     # determines prompt for interactive/non-interactive modes
+    # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
@@ -124,22 +124,22 @@ class HBNBCommand(cmd.Cmd):
 
         kwargs = {}
         for token in tokens[1:]:
-                key = token.split('=')[0]
-                value = token.split('=')[1]
-                if key in HBNBCommand.classes[tokens[0]].__dict__:
-                    if value.startswith('"') and value.endswith('"'):
-                        value = value[1:-1].replace('_', ' ').replace('\\"', '"')
-                    elif '.' in value:
-                        value = float(value)
-                    else:
-                        value = int(value)
-                    kwargs[key] = value
+            key = token.split('=')[0]
+            value = token.split('=')[1]
+            if key in HBNBCommand.classes[tokens[0]].__dict__:
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1].replace('_', ' ').replace('\\"', '"')
+                elif '.' in value:
+                    value = float(value)
+                else:
+                    value = int(value)
+                kwargs[key] = value
         new_object = HBNBCommand().classes[tokens[0]]()
         new_object.__dict__.update(kwargs)
         storage.new(new_object)
         storage.save()
         print(new_object.id)
-        
+
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
@@ -201,7 +201,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -333,4 +333,3 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
-
