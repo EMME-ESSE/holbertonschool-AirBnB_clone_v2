@@ -17,7 +17,7 @@ modelos = {"User": User, "State": State,
          "City": City, "Amenity": Amenity,
          "Place": Place, "Review": Review}
 
-class DBStorage:
+class DBStorage():
     __engine = None
     __session = None
 
@@ -28,7 +28,6 @@ class DBStorage:
                                               getenv('HBNB_MYSQL_HOST'),
                                               getenv('HBNB_MYSQL_DB')),
                                               pool_pre_ping=True)
-
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -37,8 +36,7 @@ class DBStorage:
        # if cls is None: 
         for c in modelos:
             if modelos[c] == cls or cls == None:
-                objects += self.__session.query().all()
-                for key in objects:
+                for key in self.__session.query(modelos[c]).all():
                     key = "{}.{}".format(__name__+'.'+key.id)
         return objects
                     
