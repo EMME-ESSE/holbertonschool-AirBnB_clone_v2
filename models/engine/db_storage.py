@@ -14,8 +14,9 @@ from sqlalchemy import create_engine
 from os import getenv
 
 modelos = {"User": User, "State": State,
-         "City": City, "Amenity": Amenity,
-         "Place": Place, "Review": Review}
+           "City": City, "Amenity": Amenity,
+           "Place": Place, "Review": Review}
+
 
 class DBStorage():
     __engine = None
@@ -27,19 +28,19 @@ class DBStorage():
                                               getenv('HBNB_MYSQL_PWD'),
                                               getenv('HBNB_MYSQL_HOST'),
                                               getenv('HBNB_MYSQL_DB')),
-                                              pool_pre_ping=True)
+                                      pool_pre_ping=True)
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         objects = {}
-       # if cls is None: 
+        # if cls is None:
         for c in modelos:
-            if modelos[c] == cls or cls == None:
+            if modelos[c] == cls or cls is None:
                 for key in self.__session.query(modelos[c]).all():
                     key = "{}.{}".format(__name__+'.'+key.id)
         return objects
-                    
+
     def new(self, obj):
         """new"""
         self.__session.add(obj)
@@ -50,7 +51,7 @@ class DBStorage():
 
     def delete(self, obj=None):
         """delete"""
-        if obj == None:
+        if obj is None:
             self.__session.delete(obj)
 
     def reload(self):
