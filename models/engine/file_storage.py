@@ -60,7 +60,3 @@ class FileStorage:
         if obj is not None:
             k = obj.__class__.__name__ + "." + obj.id
             del FileStorage.__objects[k]
-
-    def close(self):
-        """ close func """
-        self.reload()
