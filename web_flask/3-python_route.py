@@ -24,8 +24,8 @@ def tasktwo(text):
 
 @app.route('/python/<text>', strict_slashes=False)
 def taskthree(text):
-    t = text.replace("_", " ")
-    return "Python " + t
+    text = text.replace("_", " ")
+    return "Python " + text
 
 
 if __name__ == '__main__':
