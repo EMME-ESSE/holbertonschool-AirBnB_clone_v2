@@ -21,7 +21,7 @@ def tasktwo(text):
     t = text.replace("_", " ")
     return "C" + " " + t
 
-
+@app.route('/python/', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def taskthree(text = None):
     if text = None:
