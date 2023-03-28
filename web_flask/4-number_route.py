@@ -29,7 +29,7 @@ def taskthree(text="is cool"):
     return "Python " + text
 
 
-@app.route('/number/n')
+@app.route('/number/<n>')
 def taskfor(int(n)):
     return f"{n} is a number"
 
