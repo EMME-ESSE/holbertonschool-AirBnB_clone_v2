@@ -23,7 +23,7 @@ def tasktwo(text):
 
 
 @app.route('/python/<text>', strict_slashes=False)
-def taskthree(text):
+def taskthree(text = None):
     if text = None:
         text = text.replace("_", " ")
         return "Python is cool"
