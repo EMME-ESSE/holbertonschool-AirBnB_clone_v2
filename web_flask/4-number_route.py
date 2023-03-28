@@ -30,8 +30,7 @@ def taskthree(text="is cool"):
 
 @app.route('/number/', strict_slashes=False)
 @app.route('/number/<n>', strict_slashes=False)
-def taskfor(n):
-    n = int(n)
+def taskfor(n = int(n)):
     return n + " is a number"
 
 
