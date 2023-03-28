@@ -28,10 +28,10 @@ def taskthree(text="is cool"):
     text = text.replace("_", " ")
     return "Python " + text
 
-@app.route('/number/', strict_slashes=False)
-@app.route('/number/<n>', strict_slashes=False)
-def taskfor(n = int(n)):
-    return n + " is a number"
+@app.route('/number/<int:n>', strict_slashes=False)
+def show_number(n):
+    message = f"{n} is a number"
+    return message
 
 
 if __name__ == '__main__':
