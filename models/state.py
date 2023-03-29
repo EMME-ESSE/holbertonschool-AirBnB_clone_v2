@@ -3,6 +3,7 @@
 from os import getenv
 import models
 from models.city import City
+from models import storage
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
@@ -26,7 +27,6 @@ class State(BaseModel, Base):
         super().__init__(*args, **kwargs)
 
     def cities(self):
-        from models import storage
         cities = []
         for city in storage.all("City").values():
             if city.state_id == self.id:
