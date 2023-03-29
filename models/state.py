@@ -7,13 +7,14 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
+
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
     cities = relationship("City", backref="state",
                           cascade="all, delete-orphan")
-    
+
     if getenv("HBNB_TYPE_STORAGE") != 'db':
         def cities(self):
             """Return the list of City instances with state_id equal to
@@ -31,5 +32,3 @@ class State(BaseModel, Base):
             if city.state_id == self.id:
                 cities.append(city)
         return cities   
-    
-
