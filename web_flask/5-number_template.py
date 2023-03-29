@@ -31,7 +31,6 @@ def taskthree(text="is cool"):
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def taskfor(n):
-    n = int(n)
     return '{} is a number'.format(n)
 
 
