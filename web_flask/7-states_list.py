@@ -5,7 +5,6 @@ from models import storage
 from models.state import State
 from models import storage
 
-
 app = Flask(__name__)
 
 
