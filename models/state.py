@@ -3,7 +3,6 @@
 from os import getenv
 import models
 from models.city import City
-from models import storage
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
@@ -22,13 +21,3 @@ class State(BaseModel, Base):
             the current State.id"""
             return [city for city in models.storage.all(City).values()
                     if city.state_id == self.id]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def cities(self):
-        cities = []
-        for city in storage.all("City").values():
-            if city.state_id == self.id:
-                cities.append(city)
-        return cities   
