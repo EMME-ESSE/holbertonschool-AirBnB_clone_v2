@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#Comment
+"""Comment"""
 
 from flask import Flask, render_template
 from models import storage
@@ -10,18 +10,17 @@ from models import storage
 app = Flask(__name__)
 
 
-
-#Comment
 @app.route('/states_list', strict_slashes=False)
 def states_list():
+    """Comment"""
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)  
     return render_template('7-states_list.html', states=sorted_states)
 
 
-#Comment
 @app.teardown_appcontext
-def close_state(exception):   
+def close_state(exception):
+    """Comment"""
     storage.close()
 
 if __name__ == '__main__':
