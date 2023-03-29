@@ -30,12 +30,13 @@ def taskthree(text="is cool"):
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def number(n):
+def taskfor(n):
+    n = int(n)
     return '{} is a number'.format(n)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def temp(n):
+def taskfive(n):
     return render_template("5-number.html", n=n)
 
 
