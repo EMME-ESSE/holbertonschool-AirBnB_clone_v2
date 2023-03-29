@@ -12,13 +12,15 @@ app = Flask(__name__)
 # Commenting
 @app.route('/states_list', strict_slashes=False)
 def states_list():
+    """Comm2"""  
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)  
     return render_template('7-states_list.html', states=sorted_states)
 
 # Comment
 @app.teardown_appcontext
-def close_state(exception):   
+def close_state(exception): 
+    """Comm1"""  
     storage.close()
 
 # Run the Flask app
