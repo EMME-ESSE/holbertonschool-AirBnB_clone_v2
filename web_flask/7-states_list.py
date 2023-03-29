@@ -1,4 +1,4 @@
- #!/usr/bin/python3
+#!/usr/bin/python3
 """script that starts a Flask web app"""
 
 from flask import Flask, render_template
