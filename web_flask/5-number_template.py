@@ -35,6 +35,7 @@ def taskfor(n):
 
 
 @app.route('/number_template/<n>', strict_slashes=False)
+@app.route('/number_template/<int:n>', strict_slashes=False)
 def taskfive(n):
     return render_template("5-number.html", n=n)
 
