@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Task 5: script that starts a Flask web application
-"""
+"""Commenting"""
 from flask import Flask, render_template
 
 app = Flask(__name__)
